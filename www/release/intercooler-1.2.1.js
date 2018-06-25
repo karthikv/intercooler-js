@@ -4,7 +4,7 @@
     define(["jquery"], function (a0) {
       return (root['Intercooler'] = factory(a0));
     });
-  } else if (typeof exports === 'object') {
+  } else if (typeof module === 'object' && module.exports) {
     // Node. Does not work with strict CommonJS, but
     // only CommonJS-like environments that support module.exports,
     // like Node.
@@ -1042,6 +1042,7 @@ var Intercooler = Intercooler || (function() {
     var source = sourceElement.data('ic-event-sse-source');
     var eventMap = sourceElement.data('ic-event-sse-map');
     if(source.addEventListener && eventMap[event] != true) {
+      eventMap[event] = true;
       source.addEventListener(event, function(){
         sourceElement.find(getICAttributeSelector('ic-trigger-on')).each(function(){
           var _that = $(this);
@@ -1092,7 +1093,7 @@ var Intercooler = Intercooler || (function() {
         if(triggerOn[0].indexOf("sse:") == 0) {
           //Server-sent event, find closest event source and register for it
           var sourceElt = elt.closest(getICAttributeSelector('ic-sse-src'));
-          if(sourceElt) {
+          if(sourceElt.length > 0) {
             registerSSE(sourceElt, triggerOn[0].substr(4))
           }
         } else {
