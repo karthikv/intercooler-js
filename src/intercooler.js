@@ -1026,6 +1026,7 @@ var Intercooler = Intercooler || (function() {
     var source = sourceElement.data('ic-event-sse-source');
     var eventMap = sourceElement.data('ic-event-sse-map');
     if(source.addEventListener && eventMap[event] != true) {
+      eventMap[event] = true;
       source.addEventListener(event, function(){
         sourceElement.find(getICAttributeSelector('ic-trigger-on')).each(function(){
           var _that = $(this);
