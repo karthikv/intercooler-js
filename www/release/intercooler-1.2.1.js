@@ -1941,7 +1941,11 @@ var Intercooler = Intercooler || (function() {
       init: init,
       replaceOrAddMethod: replaceOrAddMethod,
       initEventSource: function(url) {
-        return new EventSource(url);
+        if (window.ReconnectingEventSource) {
+          return new ReconnectingEventSource(url);
+        } else {
+          return new EventSource(url);
+        }
       },
       globalEval: globalEval
     }
